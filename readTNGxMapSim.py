@@ -38,7 +38,7 @@ def take_closest(myList, myNumber):
 def FreadTNG(i):
     
     h=0.6774
-    basePath = '/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/output'
+    basePath = '/YOUR_PATH/MapSim+TNG/output'
     
     fields_s=['Masses','Coordinates', 'GFM_InitialMass', 'GFM_StellarFormationTime', 'GFM_Metallicity']#,'GFM_StellarPhotometrics']
 
@@ -62,14 +62,14 @@ def FreadTNG(i):
     met_bc03=[0.0001,0.0004,0.004,0.008, 0.02,0.05] #bc03 available metallicities
     met_app=[] #Metallicity of this star particle - GFM_sMet approximated to the closest value in met_bc03
     
-    gg="/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/age_bc03.txt" #not filtered
+    gg="/YOUR_PATH/MapSim+TNG/age_bc03.txt" #not filtered
     age_bc03=(np.loadtxt(gg,dtype="double",usecols=(0),unpack=True)*1.e-9).tolist() #bc03 available ages in [Gyr]
     age=[] #Age of this star particle computed from DT
     age_app=[] #Age of this star particle - age approximated to the closest value in age_bc03
 
     
     #Sorting z_list from the end to the beginning, otherwise take_closest() doesn't work   
-    f="/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/redshift_list_TNG_complete.txt" #not filtered
+    f="/YOUR_PATH/MapSim+TNG/illustris_python/redshift_list_TNG_pyth.txt" #not filtered
     rlist=np.loadtxt(f,dtype="double",usecols=(0,1,2,3),skiprows=1, unpack=True)
     snap_list=np.transpose(rlist[0,::-1]).tolist() #TNG snapshot list
     z_list=np.transpose(rlist[1,::-1]).tolist() #TNG redshift list
@@ -103,7 +103,7 @@ def FreadTNG(i):
 
     ###Creation of STAR PARTICLES file (at snapshot i)###
     #values printed in the sn_*.txt file = (xs, ys, zs, GFM_InMass, StellarMass, met_app, age_app, ZF)#
-    outfile_i=open('/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/sn_%d.txt' %(i), 'w')
+    outfile_i=open('/YOUR_PATH/MapSim+TNG/sn_%d.txt' %(i), 'w')
     for l in range(len(STARS[0])):
         	outfile_i.write('%.6f \t  %.6f \t %.6f \t %.6f \t %.6f \t %.6f \t %.6f \t %.6f \n' %(STARS[0][l],STARS[1][l],STARS[2][l],STARS[3][l],STARS[4][l],STARS[5][l], STARS[6][l], STARS[7][l]) )
     outfile_i.close()
@@ -113,9 +113,9 @@ def FreadTNG(i):
     ###Creation of HEADER file (at snapshot i)###
     #values printed in the header_*.txt file = (box size, mass_gas, mass_dm, mass_tracer, mass_star, mass_bh, n_part_gas, n_part_dm, n_part_tracer, n_part_star, n_part_bh, Om0, OmL, time, redshift)# 
     if i<10:
-        ff=h5.File('/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/output/snapdir_00%d/snap_00%d.0.hdf5' %(i,i), 'r')
+        ff=h5.File('/YOUR_PATH/MapSim+TNG/output/snapdir_00%d/snap_00%d.0.hdf5' %(i,i), 'r')
     elif i>=10:
-        ff=h5.File('/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/output/snapdir_0%d/snap_0%d.0.hdf5' %(i,i), 'r')
+        ff=h5.File('/YOUR_PATH/MapSim+TNG/output/snapdir_0%d/snap_0%d.0.hdf5' %(i,i), 'r')
     dset=ff[u'Header']
     bs=dset.attrs['BoxSize']
     masst=dset.attrs['MassTable']*1.e10 #Masses of particle (of each type) which have a constant mass (only DM - other types are empty) [Msun/h]
@@ -126,7 +126,7 @@ def FreadTNG(i):
     rs=dset.attrs['Redshift']
     
     
-    outfile_j=open('/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/header_%d.txt' %(i), 'w')
+    outfile_j=open('/YOUR_PATH/MapSim+TNG/header_%d.txt' %(i), 'w')
     outfile_j.write('%f \t  %f \t %f \t %f \t %f \t %f \t %f \t %d \t %d \t %d \t %d \t %d \t %d \t %f \t %f \t %f \t %f \n' %(bs, masst[0], masst[1], masst[2], masst[3], masst[4], masst[5], npart[0], npart[1], npart[2], npart[3], npart[4], npart[5],Om0,OmL,time,rs))
     outfile_j.close()
         
