@@ -54,24 +54,26 @@ In /MapSim-TNG/MapSim: modify the Makefile file with the proper paths to the lib
 In /MapSim-TNG/: the input parameters could be changed in MapSim.ini file.
 
      ***LEGEND of INPUT PARAMETERS***
-!...NUMBER_OF_PIXELS // number of pixels
-!...BOX_MPC_OVER_h // box length
-!...SOURCE_REDSHIFT // source redshift (redshift of the last plane)
-!...FIELD_OF_VIEW_IN_DEGREES_BY_SIDE // field of view in degrees
-!...FILE_REDSHIFT_LIST_SNAP_A_AND_Z // file with the redshift list (for CoDECS: [snap, 1/(1+z), z]; for TNG: [snap, 0, z]) 
-!...FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0 // file with the snapshot list available
-!...PATH_WHERE_SNAPHOSTS_ARE_LOCATED // path where the snaphosts are located
-!...SIMULATION_NAME // simulation name
-!...NUMBER_OF_FILES_PER_SNAPSHOT // number of files per snapshot (only for CoDECS; irrelevant for TNG)
-!..PATH_AND_FILE_NAME_OF_COMOVING_DISTANCES // path and file name of the comoving distance file (if not available you may use CosmoLib)
-!...SUBFIND_PATH // path of SUBFIND (if NO it won't not look for them)
-!...SEED_1 // seed for the random location of the center
-!...SEED_2 // seed for the random location of the dice face
-!...SEED_3 // seed for the random location of the sign of the coordinates
-!...PART_IN_PLANE //  which particles in the planes (ALL: one file for all; NO: one for each)
-!...ONLY_SUBS_AND_FOF_NOSnap/=0 // if 0 read also snaphosts if =/0 only subs and fof area read
+!...NUMBER_OF_PIXELS                          // number of pixels
+!...BOX_MPC_OVER_h                            // box length
+!...SOURCE_REDSHIFT                           // source redshift (redshift of the last plane)
+!...FIELD_OF_VIEW_IN_DEGREES_BY_SIDE          // field of view in degrees
+!...FILE_REDSHIFT_LIST_SNAP_A_AND_Z           // file with the redshift list 
+                                                 (for CoDECS: [snap, 1/(1+z), z]; for TNG: [snap, 0, z]) 
+!...FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0  // file with the snapshot list available
+!...PATH_WHERE_SNAPHOSTS_ARE_LOCATED          // path where the snaphosts are located
+!...SIMULATION_NAME                           // simulation name
+!...NUMBER_OF_FILES_PER_SNAPSHOT              // number of files per snapshot (only for CoDECS; irrelevant for TNG)
+!..PATH_AND_FILE_NAME_OF_COMOVING_DISTANCES   // path and file name of the comoving distance file 
+                                                 (if not available you may use CosmoLib)
+!...SUBFIND_PATH                              // path of SUBFIND (if NO it won't not look for them)
+!...SEED_1                                    // seed for the random location of the center
+!...SEED_2                                    // seed for the random location of the dice face
+!...SEED_3                                    // seed for the random location of the sign of the coordinates
+!...PART_IN_PLANE                             //  which particles in the planes (ALL: one file for all; NO: one for each)
+!...ONLY_SUBS_AND_FOF_NOSnap/=0               // if 0 read also snaphosts if =/0 only subs and fof area read
 !...BUFFER_REGION_FOR_SUBS_AND_FOF_IN_DEGREES // size of the buffer region in degrees for subs and fof
-!...TNG // is it a TNG sim?, (no is 0; yes is 1)
+!...TNG                                       // is it a TNG sim?, (no is 0; yes is 1)
      **********************************
 
 - If you run the code on GADGET-like simulation (e.g. CoDECS):
@@ -81,7 +83,7 @@ SIMULATION_NAME : "LCDM-Planck2015d" (look for the prefix of the files in the sn
 TNG: "0"
 
 - If you run the code on TNG simulation:
-BOX_MPC_OVER_h: "75" (if you use TNG100, otherwise check the proper volume on https://www.tng-project.org/data/docs/background/)
+BOX_MPC_OVER_h : "75" (if you use TNG100, otherwise check the proper volume on http://www.tng-project.org/data/docs/background/)
 FILE_REDSHIFT_LIST_SNAP_A_AND_Z : "redshift_list_TNG.txt"
 FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0 : "snaplist_TNG.txt"
 SIMULATION_NAME : "TNG"
@@ -99,17 +101,21 @@ Explanation follows.
     --set the number of the starting plane in restart_pl.d file--  
 You have to choose the snapshot (and so, the associated plane) from which the code starts to run. 
 The snapshot numbers and the corrisponding plane numbers are written in the planes_list.txt file.
-You have to run the code loosely for the first time (and everytime you change the value of the source redshift in MapSim.ini file), so the planest_list.txt file can be written.
+You have to run the code loosely for the first time, (and everytime you change the value of the source redshift in MapSim.ini 
+file), so the planest_list.txt file can be written.
 Then, you have to change the number of the plane in restart_pl.d file by hand. 
 To identify the plane number corresponding to the starting snapshot number, open the planes_list.txt file: 
 the first column is the number of the plane, the sixth column is the snapshot number.
-Look for the snapshot number xx (corresponding to your snapdir_0xx) from which the code will start to run, look at the corresponding number of the plane;
-write (number of the plane - 1) on the restart_pl.d file (e.g. you have snapdir_004. On planes_list.txt: plane number=12, snapshot=4. Write 11 on restart_pl.d file).
+Look for the snapshot number xx (corresponding to your snapdir_0xx) from which the code will start to run, look at the 
+corresponding number of the plane;
+write (number of the plane - 1) on the restart_pl.d file (e.g. you have snapdir_004. On planes_list.txt: plane number=12, 
+snapshot=4. Write 11 on restart_pl.d file).
 Now you can run the code properly.
 
 - If you run the code on TNG simulation: 
     --set the available snapshots in TESTMapSim.sh script--
-You don't need to change by hand the number of the starting plane in restart_pl.d file, because it changes automatically when the code runs at operating speed.
+You don't need to change by hand the number of the starting plane in restart_pl.d file, because it changes automatically 
+when the code runs at operating speed.
 You only need to write by hand the available snapshots in the "snapshots" array in the TESTMapSim.sh script.
 Now you can run the code properly.
 
@@ -124,7 +130,8 @@ user@ubuntu-desktop::~/MapSim-TNG/MapSim$ make -f Makefile
 user@ubuntu-desktop::~/MapSim-TNG/$ ./TESTMapSim
 
 - If you run the code on TNG simulation:
-Modify the TESTMapSim.sh file: write by hand in the "snapshots" array the snapshot numbers avalaible in your directory /MapSim-TNG/output/.
+Modify the TESTMapSim.sh file: write by hand in the "snapshots" array the snapshot numbers avalaible in your directory 
+/MapSim-TNG/output/.
 Run the code, launching TESTMapSim.sh script as follows:
 user@ubuntu-desktop::~/MapSim-TNG/$ bash TESTMapSim.sh
 or
@@ -149,7 +156,8 @@ ____________________________RECAP___________________________________
         - Launch from the shell: "bash TESTMapSim.sh" or "./TESTMapSim.sh" (you may need permissions)
 6. Set the input plane/snapshots:
     6a. If you run the code on GADGET-like simulation (e.g. CoDECS):
-        - Modify the restart_pl.d file, writing the starting plane corresponding to the starting snapshot (check it on planes_list.txt)
+        - Modify the restart_pl.d file, writing the starting plane corresponding to the starting snapshot 
+          (check it on planes_list.txt)
     6b. If you run the code on TNG simulation:
         - Modify the "snapshots" array in the TESTMapSim.sh file, writing the available snapshots 
 7. Run the code and make your planes!
