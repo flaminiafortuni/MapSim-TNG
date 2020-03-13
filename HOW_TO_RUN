@@ -1,9 +1,11 @@
 ##############################################_HOW TO RUN MapSim ON YOUR PC_###################################################
 
 Hello and Welcome to MapSim-TNG!
-Here follow the requirements and the instructions to run the code. At the end of the file, a brief recap.
+Here follow the requirements and the instructions to run the code. 
+It is configured to run on both GADGET-like and IllustrisTNG simulations.
+At the end of the file, a brief recap.
 
-This code is wirtten in C++, Python2.7 and uses GALAXEV code (Bruzual & Charlot, 2003).
+This code is written in C++, Python2.7 and uses GALAXEV code (Bruzual & Charlot, 2003).
 
 
 ____________________________________________________________________
@@ -15,23 +17,30 @@ cfitsio
 CCfits
 fftw
 
+
 ----Python----
-illustris_python module (already in the MapSim-TNG directory)
+illustris_python (already in the MapSim-TNG directory)
 numpy
+h5py
+six
+
 
 ----GALAXEV----
 download at http://www.bruzual.org/
 
-----snapshots and groups files directories----
--If you run the code on TNG simulation, you need to download the snapshots files (from https://www.tng-project.org/data) in /MapSim-TNG/output/
-e.g., if you want to run the code on snapshot 1,2, you need to put the files in
-/MapSim-TNG/output/snapdir_001
-/MapSim-TNG/output/snapdir_002
 
--If you run the code on GADGET-like simulation (e.g. CoDECS), you need to put snapshots and groups files in /MapSim-TNG/
-e.g. if you want to run the code on snapshot 1 with both snapshots and groups, you need to put the files in
+----snapshots and groups files directories----
+-If you run the code on GADGET-like simulation (e.g. CoDECS):
+You need to put snapshots and groups files in /MapSim-TNG/
+(e.g. if you want to run the code on snapshot 1 with both snapshots and groups, you need to put the files in:
 /MapSim-TNG/snapdir_001 for snapshot files
-/MapSim-TNG/groups_001 for SubHalos and FoFHalos files
+/MapSim-TNG/groups_001 for SubHalos and FoFHalos files)
+
+-If you run the code on TNG simulation:
+You need to download the snapshots files (from https://www.tng-project.org/data) in /MapSim-TNG/output/ 
+(e.g., if you want to run the code on snapshot 1,2, you need to put the files in:
+/MapSim-TNG/output/snapdir_001
+/MapSim-TNG/output/snapdir_002)
 
 
 ____________________________________________________________________
@@ -63,7 +72,13 @@ In /MapSim-TNG/: the input parameters could be changed in MapSim.ini file.
 !...ONLY_SUBS_AND_FOF_NOSnap/=0 // if 0 read also snaphosts if =/0 only subs and fof area read
 !...BUFFER_REGION_FOR_SUBS_AND_FOF_IN_DEGREES // size of the buffer region in degrees for subs and fof
 !...TNG // is it a TNG sim?, (no is 0; yes is 1)
-    **********************************
+     **********************************
+
+- If you run the code on GADGET-like simulation (e.g. CoDECS):
+FILE_REDSHIFT_LIST_SNAP_A_AND_Z : "redshift_list.txt"
+FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0 : "snaplist.txt"
+SIMULATION_NAME : "LCDM-Planck2015d" (look for the prefix of the files in the snapdir directory)
+TNG: "0"
 
 - If you run the code on TNG simulation:
 BOX_MPC_OVER_h: "75" (if you use TNG100, otherwise check the proper volume on https://www.tng-project.org/data/docs/background/)
@@ -73,48 +88,50 @@ SIMULATION_NAME : "TNG"
 SUBFIND_PATH : "NO" (Subhalo and FoFHalo catalogs not available)
 TNG: "1"
 
-- If you run the code on GADGET-like simulation (e.g. CoDECS):
-FILE_REDSHIFT_LIST_SNAP_A_AND_Z : "redshift_list.txt"
-FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0 : "snaplist.txt"
-SIMULATION_NAME : "LCDM-Planck2015d" (look for the prefix of the files in the snapdir directory)
-TNG: "0"
 
+----Set the input plane/snapshots----
+This code produces .fits files (2D planes) from the available snapshots you have downloaded.
+If you run the code on GADGET-like simulation, you need to set the number of the starting plane;
+if you run the code on TNG simulation, you need to set the available snapshots.
+Explanation follows.
 
-----Set the starting plane in restart_pl.d file----
-You have to choose the snapshot (and so, the plane) from which the code starts to run. 
+- If you run the code on GADGET-like simulation (e.g. CoDECS): 
+    --set the number of the starting plane in restart_pl.d file--  
+You have to choose the snapshot (and so, the associated plane) from which the code starts to run. 
 The snapshot numbers and the corrisponding plane numbers are written in the planes_list.txt file.
-You have to run the code loosely for the first time (and everytime you change the value of the source redshift in MapSim.ini file), so the planest_list.txt file is written, based on the source redshift you choose (the last redshift written in the file is the source redshift).
-
-- If you run the code on TNG simulation:
-You don't need to change by hand the number of the plane in "restart_pl.d", it changes automatically for every snapshot when you run the TESTMapSim.sh file.
-
-- If you run the code on GADGET-like simulation (e.g. CoDECS):
-You need to change the number of the plane in restart_pl.d file by hand. 
-After running the code loosely for the first time, so the planest_list.txt file is written, open the planes_list.txt file: 
+You have to run the code loosely for the first time (and everytime you change the value of the source redshift in MapSim.ini file), so the planest_list.txt file can be written.
+Then, you have to change the number of the plane in restart_pl.d file by hand. 
+To identify the plane number corresponding to the starting snapshot number, open the planes_list.txt file: 
 the first column is the number of the plane, the sixth column is the snapshot number.
 Look for the snapshot number xx (corresponding to your snapdir_0xx) from which the code will start to run, look at the corresponding number of the plane;
-write the (number of the plane - 1) on the restart_pl.d file (e.g. you have snapdir_004. On planes_list.txt: plane number=12, snapshot=4. Write 11 on restart_pl.d file).
-Now you can run the code correctly.
+write (number of the plane - 1) on the restart_pl.d file (e.g. you have snapdir_004. On planes_list.txt: plane number=12, snapshot=4. Write 11 on restart_pl.d file).
+Now you can run the code properly.
+
+- If you run the code on TNG simulation: 
+    --set the available snapshots in TESTMapSim.sh script--
+You don't need to change by hand the number of the starting plane in restart_pl.d file, because it changes automatically when the code runs at operating speed.
+You only need to write by hand the available snapshots in the "snapshots" array in the TESTMapSim.sh script.
+Now you can run the code properly.
 
 
 ----Run the code----
 
-1. compile the code in /MapSim-TNG/MapSim as follows:
+1. Compile the code in /MapSim-TNG/MapSim as follows:
 user@ubuntu-desktop::~/MapSim-TNG/MapSim$ make -f Makefile
 
-2. run the code in /MapSim-TNG/ as follows:
+2. Run the code in /MapSim-TNG/ as follows:
+- If you run the code on GADGET-like simulation (e.g. CoDECS):
+user@ubuntu-desktop::~/MapSim-TNG/$ ./TESTMapSim
+
 - If you run the code on TNG simulation:
 Modify the TESTMapSim.sh file: write by hand in the "snapshots" array the snapshot numbers avalaible in your directory /MapSim-TNG/output/.
 Run the code, launching TESTMapSim.sh script as follows:
 user@ubuntu-desktop::~/MapSim-TNG/$ bash TESTMapSim.sh
 or
 user@ubuntu-desktop::~/MapSim-TNG/$ ./TESTMapSim.sh
-You may need some permission; in this case digit
+You may need some permission to run the .sh file; in this case digit
 user@ubuntu-desktop::~/MapSim-TNG/$ chmod +x TESTMapSim.sh
 user@ubuntu-desktop::~/MapSim-TNG/$ chmod u+x TESTMapSim
-
-- If you run the code on GADGET-like simulation (e.g. CoDECS):
-user@ubuntu-desktop::~/MapSim-TNG/$ ./TESTMapSim
 
 
 ____________________________________________________________________
@@ -123,17 +140,19 @@ ____________________________RECAP___________________________________
 1. Download and install the libraries specified in "REQUIREMENTS"
 2. Link the libraries in the Makefile file
 3. Choose the input parameters in MapSim.ini file
-4. Compile the Makefile file, launch from shell: "make -f Makefile"
-4. Run the code loosely for the first time, so the planes_list.txt can be written:
-    4a. If you run the code on TNG simulation:
-        - Launch from the shell: "bash TESTMapSim.sh" or "./TESTMapSim.sh" (you may need permissions)
-    4b. If you run the code on GADGET-like simulation (e.g. CoDECS):
+4. Compile the Makefile file, launching from shell: "make -f Makefile"
+5. Run the code loosely for the first time, so the planes_list.txt can be written 
+   (and do it everytime you change the source redshift in MapSim.ini):
+    5a. If you run the code on GADGET-like simulation (e.g. CoDECS):
         - Launch from the shell: "./TESTMapSim"
-5. Insert the snapshots available (TNG) or modify the restart_pl.d file:
-    5a. If you run the code on TNG simulation:
-        - Modify the "snapshots" array in the TESTMapSim.sh file, write the available snapshots 
-    5b. If you run the code on GADGET-like simulation (e.g. CoDECS):
-        - Modify the restart_pl.d file, writing the starting plane corresponding to the starting snapshot
- 6. Run the code and make your planes!
-    
+    5b. If you run the code on TNG simulation:
+        - Launch from the shell: "bash TESTMapSim.sh" or "./TESTMapSim.sh" (you may need permissions)
+6. Set the input plane/snapshots:
+    6a. If you run the code on GADGET-like simulation (e.g. CoDECS):
+        - Modify the restart_pl.d file, writing the starting plane corresponding to the starting snapshot (check it on planes_list.txt)
+    6b. If you run the code on TNG simulation:
+        - Modify the "snapshots" array in the TESTMapSim.sh file, writing the available snapshots 
+7. Run the code and make your planes!
 
+____________________________________________________________________
+____________________________ENJOY!__________________________________
