@@ -31,6 +31,7 @@ download at http://www.bruzual.org/
 
 
 ----snapshots and groups files directories----
+
 -If you run the code on GADGET-like simulation (e.g. CoDECS):
 You need to put snapshots and groups files in /MapSim-TNG/
 (e.g. if you want to run the code on snapshot 1 with both snapshots and groups, you need to put the files in:
@@ -38,7 +39,7 @@ You need to put snapshots and groups files in /MapSim-TNG/
 /MapSim-TNG/groups_001 for SubHalos and FoFHalos files)
 
 -If you run the code on TNG simulation:
-You need to download the snapshots files (from https://www.tng-project.org/data) in /MapSim-TNG/output/ 
+You need to download the snapshots files (from https://www.tng-project.org/data) in /MapSim-TNG/output/
 (e.g., if you want to run the code on snapshot 1,2, you need to put the files in:
 /MapSim-TNG/output/snapdir_001
 /MapSim-TNG/output/snapdir_002)
@@ -93,7 +94,7 @@ TNG: "1"
 
 
 ----Set the input plane/snapshots----
-This code produces .fits files (2D planes) from the available snapshots you have downloaded.
+This code produces .fits files (2D planes) from the available snapshots you have previously downloaded.
 If you run the code on GADGET-like simulation, you need to set the number of the starting plane;
 if you run the code on TNG simulation, you need to set the available snapshots.
 Explanation follows.
@@ -102,14 +103,14 @@ Explanation follows.
     --set the number of the starting plane in restart_pl.d file--  
 You have to choose the snapshot (and so, the associated plane) from which the code starts to run. 
 The snapshot numbers and the corrisponding plane numbers are written in the planes_list.txt file.
-You have to run the code loosely for the first time, (and everytime you change the value of the source redshift in MapSim.ini 
+You have to run the code loosely for the first time (and everytime you change the value of the source redshift in MapSim.ini 
 file), so the planest_list.txt file can be written.
-Then, you have to change the number of the plane in restart_pl.d file by hand. 
+Then, you have to change the number of the starting plane in restart_pl.d file by hand. 
 To identify the plane number corresponding to the starting snapshot number, open the planes_list.txt file: 
 the first column is the number of the plane, the sixth column is the snapshot number.
 Look for the snapshot number xx (corresponding to your snapdir_0xx) from which the code will start to run, look at the 
 corresponding number of the plane;
-write (number of the plane - 1) on the restart_pl.d file (e.g. you have snapdir_004. On planes_list.txt: plane number=12, 
+write (number of the plane - 1) on the restart_pl.d file (e.g. you have snapdir_004; on planes_list.txt: plane number=12, 
 snapshot=4. Write 11 on restart_pl.d file).
 Now you can run the code properly.
 
@@ -127,6 +128,7 @@ Now you can run the code properly.
 user@ubuntu-desktop::~/MapSim-TNG/MapSim$ make -f Makefile
 
 2. Run the code in /MapSim-TNG/ as follows:
+
 - If you run the code on GADGET-like simulation (e.g. CoDECS):
 user@ubuntu-desktop::~/MapSim-TNG/$ ./TESTMapSim
 
