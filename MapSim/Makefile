@@ -1,5 +1,5 @@
 # executable name 
-PROG = /YOUR_PATH/MapSim+TNG/TESTMapSim
+PROG = /YOUR_PATH/MapSim-TNG/TESTMapSim
 
 MAIN = TESTmain.cpp readSUBFIND.cpp
 
