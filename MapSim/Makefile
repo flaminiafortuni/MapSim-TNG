@@ -1,17 +1,17 @@
 # executable name 
-PROG = /home/flaminia/Scrivania/test_MapSim/test_MapSim_github/TESTMapSim #change ex
+PROG = /YOUR_PATH/MapSim+TNG/TESTMapSim
 
-MAIN = TESTmain.cpp readSUBFIND.cpp #change source
+MAIN = TESTmain.cpp readSUBFIND.cpp
 
 LDFLAGS +=-Wl,-rpath  -lstdc++ #-DSWAP #-DCOSMOLIB 
 
 ##NR_DIR = /marconi/home/userexternal/cgiocoli/lib/NR
-COSMOLIB_DIR = /home/flaminia/Scaricati/CosmoLib
+COSMOLIB_DIR = /YOUR_PATH/CosmoLib
 
 
 # gsl, cfitsio, CCfits, fftw
 LIBS = -L/usr/local/lib/gsl/  -lgsl -lgslcblas  \
-       -L/home/flaminia/.local/lib/python2.7/site-packages/numpy/ \
+       -L/home/YOUR_USER/.local/lib/python2.7/site-packages/numpy/ \ #if you have conda
        -L/usr/lib/python2.7/ -lpython2.7 \
        -L/usr/local/lib/cfitsio/ \
        -L/usr/local/lib/CCfits/ -lcfitsio -lCCfits \
@@ -26,11 +26,10 @@ ALLFLAGS = -I/usr/local/include/gsl/ \
            -I/usr/local/include/cfitsio/ \
            -I/usr/local/include/CCfits/ \
            -I/usr/local/include/fftw/ \
-           -I/home/flaminia/.local/lib/python2.7/site-packages/numpy/core/include/numpy/ \
+           -I/home/YOUR_USER/.local/lib/python2.7/site-packages/numpy/core/include/numpy/ \
            -I/usr/include/python2.7/ \
 	   -I./
-           #-I/usr/include/python2.7/ -lpython2.7 \ #add by me
-           #-I/home/flaminia/.local/lib/python2.7/site-packages/numpy/core/include/numpy/ \ #add by me
+           #-I/usr/include/python2.7/ -lpython2.7 \
 	   #-I$(NR_DIR)/include \
            #-I$(COSMOLIB_DIR)/include \
 
