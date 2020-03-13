@@ -1,3 +1,95 @@
 ##############################################_HOW TO RUN MapSim ON YOUR PC_###################################################
 
-Hello and 
+Hello and Welcome to MapSim-TNG!
+Here follow the requirements and the instructions to run the code.
+
+This code is wirtten in C++, Python2.7 and uses GALAXEV code (Bruzual & Charlot, 2003).
+
+
+____________________________________________________________________
+____________________________REQUIREMENTS____________________________
+
+----C++----
+gsl
+cfitsio
+CCfits
+fftw
+
+----Python----
+illustris_python module (already in the MapSim-TNG directory)
+numpy
+
+----GALAXEV----
+download at http://www.bruzual.org/
+
+----snapshots and groups files directories----
+
+-If you use TNG, you need to put the snapshots files in /MapSim-TNG/output/
+e.g., if you want to run the code on snapshot 1,2, you need to put the files in
+/MapSim-TNG/output/snapdir_001
+/MapSim-TNG/output/snapdir_002
+
+-if you use GADGET-like (e.g. CoDECS), you need to put snapshots and groups files in /MapSim-TNG/
+e.g. if you want to run the code on snapshot 1 with both snapshots and groups, you need to put the files in
+/MapSim-TNG/snapdir_001 for snapshot files
+/MapSim-TNG/groups_001 for SubHalos and FoFHalos files
+
+____________________________________________________________________
+____________________________INSTRUCTIONS____________________________
+
+----Link the proper libraries----
+In /MapSim-TNG/MapSim: modify the Makefile file with the proper paths to the libraries.
+
+----Choose your input parameters----
+In /MapSim-TNG/: The input parameters could be changed in MapSim.ini file.
+
+     ***LEGEND of INPUT PARAMETERS***
+!...NUMBER_OF_PIXELS // number of pixels
+!...BOX_MPC_OVER_h // box length
+!...SOURCE_REDSHIFT // source redshift (redshift of the last plane)
+!...FIELD_OF_VIEW_IN_DEGREES_BY_SIDE // field of view in degrees
+!...FILE_REDSHIFT_LIST_SNAP_A_AND_Z // file with the redshift list (for CoDECS: [snap, 1/(1+z), z]; for TNG: [snap, 0, z]) 
+!...FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0 // file with the snapshot list available
+!...PATH_WHERE_SNAPHOSTS_ARE_LOCATED // path where the snaphosts are located
+!...SIMULATION_NAME // simulation name
+!...NUMBER_OF_FILES_PER_SNAPSHOT // number of files per snapshot (only for CoDECS; irrelevant for TNG)
+!..PATH_AND_FILE_NAME_OF_COMOVING_DISTANCES // path and file name of the comoving distance file (if not available you may use CosmoLib)
+!...SUBFIND_PATH // path of SUBFIND (if NO it won't not look for them)
+!...SEED_1 // seed for the random location of the center
+!...SEED_2 // seed for the random location of the dice face
+!...SEED_3 // seed for the random location of the sign of the coordinates
+!...PART_IN_PLANE //  which particles in the planes (ALL: one file for all; NO: one for each)
+!...ONLY_SUBS_AND_FOF_NOSnap/=0 // if 0 read also snaphosts if =/0 only subs and fof area read
+!...BUFFER_REGION_FOR_SUBS_AND_FOF_IN_DEGREES // size of the buffer region in degrees for subs and fof
+!...TNG // is it a TNG sim?, (no is 0; yes is 1)
+    **********************************
+
+- If you run the code on TNG you need:
+BOX_MPC_OVER_h: "75" (if you use TNG100, otherwise check the proper volume on https://www.tng-project.org/data/docs/background/)
+FILE_REDSHIFT_LIST_SNAP_A_AND_Z : "redshift_list_TNG.txt"
+FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0 : "snaplist_TNG.txt"
+SIMULATION_NAME : "TNG"
+SUBFIND_PATH : "NO" (Subhalo and FoFHalo catalogs not available)
+TNG: "1"
+
+- If you run the code on GADGET-like simulation (e.g. CoDECS):
+FILE_REDSHIFT_LIST_SNAP_A_AND_Z : "redshift_list.txt"
+FILE_SNAPSHOTS_AVAILABLE_SORTED_FROM_Z=0 : "snaplist.txt"
+SIMULATION_NAME : "LCDM-Planck2015d" (look for the prefix of the files in the snapdir directory)
+TNG: "0"
+
+----restart_pl.d file----
+You can choose the plane from which the code starts to run.
+
+-If you run the code on TNG:
+You don't need to change the value by hand, it changes automatically for every snapshot when you run the TESTMapSim.sh file.
+Anyway, you have to run the code loosely for the first time, so the planest_list.txt file is written, based on the source redshift you choose.
+
+-If you run the code on GADGET-like simulation (e.g. CoDECS):
+You need to change the number of the plane in "restart_pl.d" by hand. 
+Run the code loosely for the first time, so the planest_list.txt file is written, based on the source redshift you choose;
+open the planes_list.txt file: the first column is the number of the plane, the sixth column is the snapshot number.
+Look for your snapshot number xx (corresponding to your snapdir_0xx), look at the corresponding number of the plane;
+write the (number of the plane - 1) on the restart_pl.d file (e.g. you have snapdir_004. On planes_list.txt: plane number: 12, snapshot: 4. Write 11 on restart_pl.d file).
+Now you can run the code correctly.
+
