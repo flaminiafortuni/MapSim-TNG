@@ -30,7 +30,7 @@ six
 download at http://www.bruzual.org/
 
 
-----snapshots and groups files directories----
+----Paths of the directories----
 
 -If you run the code on GADGET-like simulation (e.g. CoDECS):
 You need to put snapshots and groups files in /MapSim-TNG/
@@ -43,6 +43,8 @@ You need to download the snapshots files (from https://www.tng-project.org/data)
 (e.g., if you want to run the code on snapshot 1,2, you need to put the files in:
 /MapSim-TNG/output/snapdir_001
 /MapSim-TNG/output/snapdir_002)
+You also need to change the paths at the beginning of the python script readTNGxMapSim.py. Open the python script and 
+substitute "YOUR_PATH" with your path.
 
 
 ____________________________________________________________________
