@@ -6,7 +6,10 @@ Here follow the requirements and the instructions to run the code.
 It is configured to run on both GADGET-like and IllustrisTNG simulations.
 At the end of the file, a brief recap.
 
-This code is written in C++, Python2.7 and uses GALAXEV code (Bruzual & Charlot, 2003).
+This code is orginally written in C++, Python2.7 and uses GALAXEV code (Bruzual & Charlot, 2003).
+If you want to switch from Python2.7 to Python3.x, you can substitute the "Makefile" and the "TESTMain.cpp" files in 
+/MapSim-TNG/MapSim; the "readTNGxMapSim.py" file and the whole "illustris_python" directory placed in /MapSim-TNG/ 
+with the files and the folder, which have the same names, placed in /MapSim-TNG/MapSim_python3.x/.
 
 
 ____________________________________________________________________
