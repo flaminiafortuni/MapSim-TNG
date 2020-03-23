@@ -16,11 +16,6 @@ if 'threading' in sys.modules:
 
 
 def take_closest(myList, myNumber):
-    """
-    myList is sorted, it returns closest value to myNumber.
-
-    If two numbers are equally close, return the smallest number.
-    """
     pos = bisect_left(myList, myNumber)
     if pos == 0:
         return 0
