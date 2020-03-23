@@ -40,13 +40,13 @@ def FreadTNG(i):
     h=0.6774
     
     #PATHS#
-    basePath = '/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/output'
-    AGEPath="/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/age_bc03.txt" #age bc03 - not filtered
-    ZLISTPath="/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/illustris_python//redshift_list_TNG_pyth.txt" #TNG z,age,lbt list - not filtered
-    OUTPath='/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/sn_%d.txt' #output snapshot
-    HEADERPath='/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/header_%d.txt'
-    f_1dig='/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/output/snapdir_00%d/snap_00%d.0.hdf5' #snapshot with 1 digit
-    f_2dig='/home/flaminia/Scrivania/test_MapSim/test_MapSim_github/output/snapdir_0%d/snap_0%d.0.hdf5' #snapshot with 2 digits    
+    basePath = '/YOUR_PATH/MapSim-TNG/output'
+    AGEPath="/YOUR_PATH/MapSim-TNG/age_bc03.txt" #age bc03 - not filtered
+    ZLISTPath="/YOUR_PATH/MapSim-TNG/illustris_python/redshift_list_TNG_pyth.txt" #TNG z,age,lbt list - not filtered
+    OUTPath='/YOUR_PATH/MapSim-TNG/sn_%d.txt' #output snapshot
+    HEADERPath='/YOUR_PATH/MapSim-TNG/header_%d.txt'
+    f_1dig='/YOUR_PATH/MapSim-TNG/output/snapdir_00%d/snap_00%d.0.hdf5' #snapshot with 1 digit
+    f_2dig='/YOUR_PATH/MapSim-TNG/output/snapdir_0%d/snap_0%d.0.hdf5' #snapshot with 2 digits    
     fields_s=['Masses','Coordinates', 'GFM_InitialMass', 'GFM_StellarFormationTime', 'GFM_Metallicity']#,'GFM_StellarPhotometrics']
 
 ################(a snaps=i)###########################################
