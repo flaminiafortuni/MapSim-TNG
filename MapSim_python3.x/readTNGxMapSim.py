@@ -1,7 +1,7 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3.6
 # -*- coding: utf-8 -*-
 """
-Created on Wed Nov 20 13:21:00 2019
+Created on Mon Mar 23 13:21:00 2020
 
 @author: flaminia.fortuni@inaf.it
 """
