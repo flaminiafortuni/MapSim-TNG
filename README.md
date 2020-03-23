@@ -1,6 +1,7 @@
 # MapSimTNG
 
-Mock images of extragalactic surveys from particles of hydrodynamical cosmological simulations (GADGET-like or IllustrisTNG). 
+This code creates mock images of extragalactic fields from hydrodynamical cosmological simulations (GADGET-like or IllustrisTNG), emulating the properties of known observational surveys or instruments in terms of resolution and depth.
+
 Lightcones supplied by Carlo Giocoli.
 Photometry supplied by Bruzual & Charlot (Bruzual & Charlot, 2003).
 
